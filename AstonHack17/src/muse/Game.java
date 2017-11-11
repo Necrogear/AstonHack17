@@ -4,6 +4,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import oscP5.OscMessage;
@@ -14,6 +15,8 @@ public class Game extends BasicGame {
 	private static OscP5 museServer;
 	static int recvPort = 5000;
 	private boolean blinking = false;
+	
+	private Image dinosaur;
 	
 	public Game() {
 		super("Blinky Dinosaur");
@@ -35,10 +38,11 @@ public class Game extends BasicGame {
 	}
 
 	public void init(GameContainer gc) throws SlickException {
-
+		dinosaur = new Image("assets/dinosaur.png");
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException {
+		g.drawImage(dinosaur, 200, 200);
 		if (blinking) {
 			g.drawString("YER BLINKIN", 40, 40);
 		}else
