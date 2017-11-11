@@ -2,10 +2,12 @@ package muse;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Point;
 
 import oscP5.OscMessage;
 import oscP5.OscP5;
@@ -16,7 +18,12 @@ public class Game extends BasicGame {
 	static int recvPort = 5000;
 	private boolean blinking = false;
 	
+	
 	private Image dinosaur;
+	private float y;
+	
+	private Image goose;
+	private float x;
 	
 	public Game() {
 		super("Blinky Dinosaur");
@@ -38,20 +45,29 @@ public class Game extends BasicGame {
 	}
 
 	public void init(GameContainer gc) throws SlickException {
+		gc.getGraphics().setBackground(new Color(255, 255, 255));
+		gc.getGraphics().setAntiAlias(true);
+		x=400;
 		dinosaur = new Image("assets/dinosaur.png");
+		goose = new Image("assets/goose.png");
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		g.drawImage(dinosaur, 200, 200);
+		g.drawImage(dinosaur, 200, y);
+		g.drawImage(goose, x, 350);
+		g.setColor(new Color(0, 0, 0));
 		if (blinking) {
+			g.setColor(new Color(0, 0, 0));
 			g.drawString("YER BLINKIN", 40, 40);
 		}else
 			g.drawString("YER NAWT BLINKIN", 40, 40);
-
 	}
 
 	public void update(GameContainer gc, int delta) throws SlickException {
-
+		float movementSpeed = 0.1f;
+		
+		y += (movementSpeed * delta);
+		x -= (movementSpeed * delta);
 	}
 	
 	void oscEvent(OscMessage msg) {
