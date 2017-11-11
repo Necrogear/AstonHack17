@@ -1,4 +1,4 @@
-package example;
+package muse;
 
 import oscP5.*;
 
@@ -9,9 +9,8 @@ public class MuseOscServer {
 	OscP5 museServer;
 	static int recvPort = 5000;
 
-	public static void main(String[] args) {
-		museOscServer = new MuseOscServer();
-		museOscServer.museServer = new OscP5(museOscServer, recvPort);
+	public MuseOscServer() {
+		museServer = new OscP5(museOscServer, recvPort);
 	}
 
 	void oscEvent(OscMessage msg) {
