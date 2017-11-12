@@ -9,6 +9,7 @@ public class Dino {
 	private Point position;
 	private boolean isVisible;
 	private static final double GRAVITY = -1;
+	private static final int GROUND = 630;
 	private float vel=0;
 	private boolean hasSecondJump = false;
 	
@@ -21,11 +22,11 @@ public class Dino {
 	public void update() {
 		if (position.getY()<=0)
 			vel=0;
-		if (position.getY()<600)
+		if (position.getY()<GROUND)
 			vel+=GRAVITY;
 		position.setY(position.getY()-vel);
-		if (position.getY()>600)
-			position.setY(600);
+		if (position.getY()>GROUND)
+			position.setY(GROUND);
 	}
 	
 	public void gainSecondJump() {
@@ -42,7 +43,7 @@ public class Dino {
 	}
 	
 	public boolean inAir() {
-		if (position.getY()>=600) {
+		if (position.getY()>=GROUND) {
 			return false;
 		} else
 			return true;
