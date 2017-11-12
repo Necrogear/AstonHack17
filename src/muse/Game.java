@@ -8,7 +8,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
 
@@ -43,6 +45,9 @@ public class Game extends BasicGame {
 	private Background scen22;
 	private Background scen32;
 	private Background scen42;
+	
+	private Music music;
+	private Sound roar;
 	
 	public Game() throws SlickException {
 		super("Blinky Dinosaur");
@@ -84,6 +89,9 @@ public class Game extends BasicGame {
 		goose = new Goose();
 		goose2 = new Goose();
 		goose2.setXPos(goose2.getPos().getX()+200);
+	    roar = new Sound("assets/roar.ogg");
+	    music = new Music("assets/jpark.ogg");
+	    music.loop();
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException {
@@ -183,6 +191,7 @@ public class Game extends BasicGame {
 			&& (dinosaur.getPos().getY()>(goose.getPos().getY()) && (dinosaur.getPos().getY()<(goose.getPos().getY()+200))))) {
 				counter1=50;
 				health-=1;
+				roar.play();
 			}
 		}
 		else {
