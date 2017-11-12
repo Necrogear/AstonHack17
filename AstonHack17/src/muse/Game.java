@@ -192,7 +192,7 @@ public class Game extends BasicGame {
 	void oscEvent(OscMessage msg) {
 		if (msg.checkAddrPattern("/muse/eeg") == true) {
 			int i = 0;
-			if (msg.get(i).floatValue() > 1000) {
+			if (msg.get(i).floatValue() > 900) {
 				//System.out.println("BLINK");
 				blinking = true;
 			} else {
