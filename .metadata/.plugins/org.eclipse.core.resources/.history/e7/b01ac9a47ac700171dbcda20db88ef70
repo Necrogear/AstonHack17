@@ -1,0 +1,37 @@
+package muse;
+
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Point;
+
+public class Background {
+	
+	private Image image;
+	private int order;
+	private float speed;
+	private Point position;
+	
+	public Background(String bg, int order, float speed) throws SlickException {
+		String str = "assets/"+bg;
+		image = new Image(str);
+		this.order = order;
+		this.speed = speed;
+		position = new Point(0,0);
+	}
+	
+	public void update() {
+		position.setX(position.getX()-speed);
+		if (position.getX()<=-1600) {
+			position.setX(1600);
+		}
+	}
+	
+	public Image getImage() {
+		return image;
+	}
+
+	public int getOrder() {
+		return order;
+	}
+
+}

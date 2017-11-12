@@ -1,0 +1,69 @@
+package muse;
+
+import java.util.Random;
+
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Point;
+
+public class Goose {
+	private Image image;
+	private Point position;
+	private boolean isVisible;
+	private float gooseSpeed=10;
+	private Random rng;
+	
+	
+	public Goose() throws SlickException {
+		position = new Point(1600,600);
+		image = new Image("assets/goose.png");
+		//gooseSpeed=9+rng.nextInt(3);
+		randomiseSpeed();
+	}
+	
+	public void randomiseSpeed() {
+		Random rng = new Random();
+		gooseSpeed=9+rng.nextInt(8);
+	}
+
+	public void reset() {
+		position.setLocation(1600, 600);
+		randomiseSpeed();
+	}
+
+	public void update() {
+		if (position.getX()>-700) {
+			position.setX(position.getX()-gooseSpeed);
+		}
+	}
+	
+	public void setXPos(float f) {
+		position.setX(f);
+	}
+	
+	public void setYPos(int y) {
+		position.setY(y);
+
+	}
+	
+	public void setPos(int x, int y) {
+		position.setLocation(x, y);
+
+	}
+	
+	public void setVisible(boolean visible) {
+		isVisible = visible;
+	}
+	
+	public Point getPos() {
+		return position;
+	}
+	
+	public Image getImage() {
+		return image;
+	}
+	
+	public boolean getVisibility() {
+		return isVisible;
+	}
+}
