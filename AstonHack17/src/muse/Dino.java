@@ -19,6 +19,8 @@ public class Dino {
 	}
 
 	public void update() {
+		if (position.getY()<=0)
+			vel=0;
 		if (position.getY()<600)
 			vel+=GRAVITY;
 		position.setY(position.getY()-vel);
