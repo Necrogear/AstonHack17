@@ -9,6 +9,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Transform;
 
 import oscP5.OscMessage;
 import oscP5.OscP5;
@@ -23,6 +25,11 @@ public class Game extends BasicGame {
 	private Goose goose;
 	private Goose goose2;
 	private Random rng;
+	private int health = 10;
+	private int score = 0;
+	
+	private int counter1 = 0;
+	
 	private Background sun;
 	private Background sky;
 	private Background scen1;
@@ -80,6 +87,8 @@ public class Game extends BasicGame {
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException {
+		if(health>0) {
+		incrementScore();
 		g.drawImage(bg, 0, 0);
 		
 		g.drawImage(sky.getImage(),sky.getPos().getX(),0);
@@ -102,6 +111,14 @@ public class Game extends BasicGame {
 			g.drawString("YER BLINKIN", 40, 40);
 		}else {
 			g.drawString("YER NAWT BLINKIN", 40, 40);
+		}
+		g.drawString("SCORE:  "+ score, 1500, 80);
+		g.drawString("HEALTH: "+ health, 1500, 100);
+		
+		}
+		else {
+			g.drawImage(new Image("assets/gameover1.png"),0,0);
+			g.drawString(""+score, 1400, 200);
 		}
 
 	}
@@ -130,6 +147,10 @@ public class Game extends BasicGame {
 		}
 		goose.update();
 		goose2.update();
+		
+		checkHit1(goose);
+		checkHit1(goose2);
+		
 		Input input = gc.getInput();
 		
 		/* With Double Jump
@@ -152,6 +173,22 @@ public class Game extends BasicGame {
 		
 	}
 	
+	private void incrementScore() {
+		score++;
+	}
+	
+	private void checkHit1(Goose goose) {
+		if(counter1==0) {
+			if(dinosaur.getPos().getX()>(goose.getPos().getX()-63) && (dinosaur.getPos().getX()<(goose.getPos().getX()+82) 
+			&& (dinosaur.getPos().getY()>(goose.getPos().getY()) && (dinosaur.getPos().getY()<(goose.getPos().getY()+200))))) {
+				counter1=50;
+				health-=1;
+			}
+		}
+		else {
+			counter1--;
+		}
+	}
 	void oscEvent(OscMessage msg) {
 		if (msg.checkAddrPattern("/muse/eeg") == true) {
 			int i = 0;
