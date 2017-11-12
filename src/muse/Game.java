@@ -13,6 +13,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
+import org.newdawn.slick.particles.ParticleEmitter;
+import org.newdawn.slick.particles.ParticleSystem;
+
 
 import oscP5.OscMessage;
 import oscP5.OscP5;
@@ -26,9 +29,9 @@ public class Game extends BasicGame {
 	private Image bg;
 	private Goose goose;
 	private Goose goose2;
-	private Random rng;
 	private int health = 10;
 	private int score = 0;
+
 	
 	private int counter1 = 0;
 	
@@ -48,6 +51,7 @@ public class Game extends BasicGame {
 	
 	private Music music;
 	private Sound roar;
+	private int counter;
 	
 	public Game() throws SlickException {
 		super("Blinky Dinosaur");
@@ -71,7 +75,6 @@ public class Game extends BasicGame {
 	public void init(GameContainer gc) throws SlickException {
 		dinosaur = new Dino(100,100);
 		bg = new Image("assets/bg1.png");
-		
 		sun = new Background("sun1.png",5,0);
 		sky = new Background("sky1.png",6,0);
 		scen4 = new Background("scenarybg4.png",4,0.5);
@@ -121,14 +124,12 @@ public class Game extends BasicGame {
 			g.drawString("YER NAWT BLINKIN", 40, 40);
 		}
 		g.drawString("SCORE:  "+ score, 1500, 80);
-		g.drawString("HEALTH: "+ health, 1500, 100);
-		
-		}
+		g.drawString("HEALTH: "+ health, 1500, 100);	}
 		else {
 			g.drawImage(new Image("assets/gameover1.png"),0,0);
 			g.drawString(""+score, 1400, 200);
 		}
-
+		
 	}
 
 	public void update(GameContainer gc, int delta) throws SlickException {
@@ -159,6 +160,11 @@ public class Game extends BasicGame {
 		checkHit1(goose);
 		checkHit1(goose2);
 		
+		if(dinosaur.inAir()&&counter>2) {
+			dinosaur.swapImage();
+			counter = 0;
+		}
+		counter++;
 		Input input = gc.getInput();
 		
 		/* With Double Jump
@@ -174,7 +180,7 @@ public class Game extends BasicGame {
 		}*/
 	
 		/* Without Jump Restriction */
-		if((input.isKeyPressed(input.KEY_SPACE) || blinking)) {
+		if((input.isKeyPressed(Input.KEY_SPACE) || blinking)) {
 			blinking=false;
 			dinosaur.jump();
 		}

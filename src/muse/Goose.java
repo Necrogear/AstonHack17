@@ -16,7 +16,7 @@ public class Goose {
 	
 	public Goose() throws SlickException {
 		position = new Point(1600,600);
-		image = new Image("assets/goose.png");
+		image = new Image("assets/goose2.png");
 		//gooseSpeed=9+rng.nextInt(3);
 		randomiseSpeed();
 	}

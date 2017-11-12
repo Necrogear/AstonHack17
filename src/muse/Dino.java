@@ -5,9 +5,11 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Point;
 
 public class Dino {
-	private Image image;
+	private Image image1;
+	private Image image2;
 	private Point position;
 	private boolean isVisible;
+	private boolean isJumping;
 	private static final double GRAVITY = -1;
 	private static final int GROUND = 630;
 	private float vel=0;
@@ -16,7 +18,9 @@ public class Dino {
 	
 	public Dino(int x, int y) throws SlickException {
 		position = new Point(x,y);
-		image = new Image("assets/dino.png");
+		image1 = new Image("assets/dino.png");
+		image2 = new Image("assets/dino2.png");
+
 	}
 
 	public void update() {
@@ -72,7 +76,7 @@ public class Dino {
 	}
 	
 	public Image getImage() {
-		return image;
+		return image1;
 	}
 	
 	public boolean getVisibility() {
@@ -99,5 +103,20 @@ public class Dino {
 		else
 			hasSecondJump = true;
 		vel=25;
+	}
+
+	public boolean isJumping() {
+		return isJumping;
+	}
+	
+	public void swapImage() {
+		Image temp;
+		temp = image1;
+		image1 = image2;
+		image2 = temp;
+	}
+
+	public void setJumping(boolean isJumping) {
+		this.isJumping = isJumping;
 	}
 }
