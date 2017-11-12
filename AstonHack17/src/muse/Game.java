@@ -75,7 +75,7 @@ public class Game extends BasicGame {
 			int i = 0;
 			// System.out.print("EEG on channel " + i + ": " + msg.get(i).floatValue() +
 			// "\n");
-			if (msg.get(i).floatValue() > 1000) {
+			if (msg.get(i).floatValue() > 900) {
 				System.out.println("BLINK");
 				blinking = true;
 			} else {
